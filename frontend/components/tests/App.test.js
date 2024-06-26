@@ -17,8 +17,10 @@ describe('Stranger Things App', () => {
   })
   test('App mounts without crashing', () => {
     // 👉 TASK: print the simulated DOM using screen.debug
+  
   })
   test('App renders the correct texts', async () => {
+  await user.click(screen.getByText('Press to Get Show Data'))
     // 👉 TASK: click on the button that displays "Press to Get Show Data"
 
     // 👉 TASK: create a waitFor and await for the following to be true:
@@ -27,9 +29,18 @@ describe('Stranger Things App', () => {
     //    - The text "A love letter to the '80s classics that captivated a generation" exists in the DOM
     //    - The text "Select A Season" exists in the DOM
     // ❗ You will need { exact: false } to select the longer text
-
+await waitFor(() => {
+  expect(screen.queryByTesxt('Press to get Show Data'))
+  .not.toBeInTheDocument()
+  screen.getByTestId('Stranger Things')
+  screen.getAllByAltText("A love letter to tthe '80s classics \
+    that captivated a generation", { exact: false })
+    screen.getByText("select A Season")
+})
+screen.debug()
     // 👉 TASK: select Season 2 from the dropdown
     // ❗ Don't forget user actions need the await keyword
+    await user.selectOptions(document.querySelector('select'), '1')
     // ❗ Use the selectOptions user action
     // ❗ Grab the select element using querySelector
 
@@ -38,6 +49,9 @@ describe('Stranger Things App', () => {
     //    - The text "Chapter One: MADMAX" exists in the DOM
     //    - The text "One year after the events with the Upside Down and the Demogorgon" exists in the DOM
     // ❗ You will need { exact: false } to select the longer text
-
+    screen.getByText("Season 2, Episode 1")
+    screen.getByText("Chapter One: MADMAX")
+    screen.getByText("One year after the events with the \
+    Upside Down and the Demogorgon", { exact: false })
   })
 })
